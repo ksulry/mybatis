@@ -107,8 +107,8 @@ public class RedisController {
             });
         } catch (Exception e) {
             e.printStackTrace();
-           // System.out.println("长度为:" + salaries);
-            //return "false";
+            System.out.println("长度为:" + salaries);
+            return "false";
         }
         long end = System.currentTimeMillis();
         System.out.println("运行总时长为:" + (end - start) / 1000 + "秒");

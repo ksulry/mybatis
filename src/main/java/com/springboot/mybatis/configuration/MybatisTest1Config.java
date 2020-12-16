@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
@@ -25,9 +26,10 @@ public class MybatisTest1Config {
     public SqlSessionFactory sqlSessionFactoryTest1() throws Exception {
         SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
         factory.setDataSource(test1);
-        factory.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
         //指定mapper位置
-        //factory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/mapper/test1/*.xml"));
+        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        factory.setMapperLocations(resolver.getResources("classpath:xml/*.xml"));
+        factory.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
         return factory.getObject();
     }
     @Bean

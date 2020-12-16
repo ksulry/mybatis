@@ -36,7 +36,7 @@ public class UserService {
          userMapper.delete(age);
          return 0;
     }
-    @Transactional
+    @Transactional("transactionManagerTest1")
     public int deleteTrx(int age,int age2) {
         try {
             userMapper.delete(age);
@@ -44,7 +44,7 @@ public class UserService {
             Thread.sleep(12000);
             System.out.println("睡眠结束!" + System.currentTimeMillis());
             userMapper.delete(age2);
-        } catch (Exception e) {
+       } catch (Exception e) {
             System.out.println("出现异常:");
             e.printStackTrace();
         }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.mybatis.mapper.dm.CommDeptMapper">
+
+
+	<!-- 部门列表用 start -->
+
+	<resultMap id="deptListColl" type="com.sinog2c.workbench.model.Person">
+		<id property="uid" column="uid"></id>
+		<result property="chargeman" column="chargeman"></result>
+		<result property="tel" column="tel"></result>
+		<result property="name" column="name"></result>
+		<!--<result property="userCnt" column="userCnt"></result>-->
+		<collection property="children" column="uid" ofType="com.sinog2c.workbench.model.User">
+			<result property="huid" column="huid"/>
+			<result property="hchargeman" column="hchargeman"/>
+			<result property="htel" column="htel"/>
+			<result property="hname" column="hname"/>
+		</collection>
+	</resultMap>
+
+	<select id="selectDeptList01" parameterType="string" resultMap="deptListColl">
+
+		SELECT cd.uid ,cd.chargeman,cd.tel,cd.name,cd1.uid as huid,cd1.chargeman as hchargeman,cd1.tel as htel,cd1.name as hname
+		from comm_dept cd,comm_dept cd1 WHERE cd.ISDEL = 0 and (cd.UID = #{uid} and cd1.PUID = #{uid}) ORDER BY cd1.PUID ,cd1."LEVEL",cd1.SN ASC
+	</select>
+
+	<select id="selectDeptList" parameterType="string" resultType="Map">
+		SELECT cd.uid,cd.chargeman,cd.tel,cd.name,cd.type,cd.puid,cd.org_no,cd.sn,cd.secondcourt,cd.supercourt,cd.procuratorate
+		from comm_dept cd WHERE cd.ISDEL = 0
+		START WITH cd.UID = #{uid}
+       connect by prior cd.UID=cd.PUID ORDER BY cd1.PUID ,cd."LEVEL",SN ASC
+	</select>
+
+</mapper>

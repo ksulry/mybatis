@@ -13,11 +13,19 @@ public class DataSourceConfig {
     @Bean(name="datasourceTest1")
     @ConfigurationProperties(prefix = "spring.datasource.org")
     public DataSource datasourceTest1() {
+        //这种返回的是Hikari
         return DataSourceBuilder.create().build();
+        //return DruidDataSourceBuilder.create().build();
     }
     @Bean(name="datasourceTest2")
     @ConfigurationProperties(prefix = "spring.datasource.gsiot")
     public DataSource datasourceTest2() {
         return DataSourceBuilder.create().build();
     }
+
+    /*@Bean(name="datasourceDm")
+    @ConfigurationProperties(prefix = "spring.datasource.dm")
+    public DataSource datasourceDm() {
+        return DataSourceBuilder.create().build();
+    }*/
 }

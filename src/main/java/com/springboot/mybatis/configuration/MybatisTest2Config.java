@@ -13,9 +13,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
-/**
+/*
  * 定义test1数据源
- */
+*/
+
 @Configuration
 @MapperScan(basePackages = {"com.springboot.mybatis.mapper.test2"},sqlSessionFactoryRef = "sqlSessionFactoryTest2")
 public class MybatisTest2Config {

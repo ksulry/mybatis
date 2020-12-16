@@ -20,10 +20,11 @@ public class SalariesService {
         System.out.println(salariesList.get(0).getEmpNo() + "," + salariesList.get(0).getToDate());
         return salariesList;
     }
-    @Transactional(value = "transactionManagerTest2")
+ @Transactional(value = "transactionManagerTest2")
     public void insert(Salaries salaries){
         salariesMapper.insert(salaries);
     }
+
 
     public void get(){
         Salaries salaries = new Salaries();

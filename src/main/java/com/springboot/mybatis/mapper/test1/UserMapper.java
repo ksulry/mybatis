@@ -4,6 +4,7 @@ import com.springboot.mybatis.entity.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+
 @Mapper //声明UserMapper为一个Mapper接口
 public interface UserMapper {
     /*@Result是结果映射列表
@@ -28,6 +29,7 @@ public interface UserMapper {
 
     @Delete("delete from user where id = #{id}")
     void deleteId(int id);
+
 }
 
 

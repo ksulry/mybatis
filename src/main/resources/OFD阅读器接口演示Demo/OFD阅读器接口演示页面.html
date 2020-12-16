@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<link href="./common/style.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="./common/AIP_MAIN_aip.js"></script>
+	<script type="text/javascript" src="./common/AIP_MAIN_bz.js"></script>
+    <title>点聚OFD阅读器接口演示</title>
+    <style>
+        .btn{
+            margin: 20px 20px;
+            width: 150px; 
+			border: none;
+			color: white;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			border-radius: 12px;			
+        }
+        .content{
+            margin: 10px auto;
+            display: none;
+        }
+        .btn.active{
+            background-color: #4CAF50;
+        }
+        .content.show{
+            display:block;
+            
+        }
+		.btn1{
+			background-color:#99D3F5;
+		}
+		.a{
+			width:100%;
+			-webkit-transition-duration: 0.4s; 
+			transition-duration: 0.4s;
+			font-size: 13px;
+			padding: 5px;
+			background-color:#555555;
+			border: none;
+			color: white;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			border-radius: 12px;
+		}
+		.a:hover{
+			background-color: #4CAF50;
+			color: white;
+		}
+		.menuItem{
+			width:95%;
+			-webkit-transition-duration: 0.4s; 
+			transition-duration: 0.4s;
+			font-size: 13px;
+			padding: 10px 7px;
+			text-align: center;
+			background-color:#FFA500;
+			border: none;
+			color: white;
+			text-decoration: none;
+			display: inline-block;
+			border-radius: 12px;
+		}
+		.menuItem:hover{
+			background-color: #4CAF50;
+			color: white;
+		}
+    </style>
+	<SCRIPT LANGUAGE=javascript>
+		function menuOnClick(id){
+			var id=document.getElementById(id);
+			var dis=id.style.display;
+			if(dis!="none"){
+				id.style.display="none";
+				
+			}else{
+				id.style.display="block";
+				
+			}
+		}
+	</SCRIPT>
+</head>
+<body>
+	<!-- <table class=tableblock width="90%">
+						<td colspan=2 valign=middle>
+								<center>
+								<font size=6> 统一接口演示页面</font>
+								</center>
+						</td>
+	</table> -->
+    <p class="btn1">
+        <button class="btn active">基于aip接口</button>
+
+        <button class="btn">标准化接口</button>
+    
+    </p>
+	<table class="TableBlock" width="100%">
+		<tr>
+			<td width="12%" valign="top" class="leftTableData">
+				<div class="content show">
+								<div class="menuItem" onClick="menuOnClick('test1')">
+									常用接口
+								</div>
+								<div id="test1">
+									<input type="button" class="a" onclick="loadfile('')" value="打开文档"/>
+									<input type="button" class="a" onclick="login(0,'')" value="用户登陆"/>
+									<input type="button" class="a" onclick="islogin()" value="判断登录状态"/>
+									<input type="button" class="a" onclick="saveto('D:\\test123.pdf','pdf',0)" value="保存文档"/>
+									<input type="button" class="a" onclick="saveFileServer('http://127.0.0.1:8082/uploadPDF/saveTo.jsp','test')" value="文件上传"/>
+									<input type="button" class="a" onclick="printdoc(1,1)" value="打印"/>
+									<input type="button" class="a" onclick="closedoc(0)" value="关闭文档"/>		
+								</div>
+
+								<div class="menuItem" onClick="menuOnClick('seal')">
+									盖章方式
+								</div>
+								<div id="seal" style="display: none">
+									<input type="button" class="a" onclick="addseal(1,0,'')" value="手动盖章"/>
+									<input type="button" class="a" onclick="addseal(0,1,'')" value="手写"/>
+									<input type="button" class="a" onclick="addseal(0,2,'')" value="手动插入编辑区"/>
+									<input type="button" class="a" onclick="InsertYwm()" value="添加一维码"/>
+									<input type="button" class="a" onclick="InsertPdf417()" value="添加二维码"/>
+									<input type="button" class="a" onclick="InsertQr()" value="添加方形码"/>
+									<input type="button" class="a" onclick="getvalueex()" value="插入节点数据"/>
+								</div>
+								
+								<div class="menuItem" onClick="menuOnClick('aip')">
+									文件操作
+								</div>		
+								<div id="aip" style="display: none">								
+									<input type="button" class="a" onclick="searchText('',0,0)" value="查找文字"/>
+									<input type="button" class="a" onclick="findtext('性能',0,1,0,0,2,49999,49999,1)" value="查找文字并返回坐标"/>
+									<input type="button" class="a" onclick="insertbjq('zs1',0,3,6000,4000,20000,3000)" value="插入编辑区"/>
+									<input type="button" class="a" onclick="insertText('zs1')" value="向编辑区插入数据"/>
+									<input type="button" class="a" onclick="getNoteNum(251)" value="获取节点个数"/>
+									<input type="button" class="a" onclick="getNoteByIndex(251)" value="根据序号获得节点"/>
+									<input type="button" class="a" onclick="mergeFile(0,'D:\\99.pdf')" value="合并文档"/>
+								</div>
+								
+								<div class="menuItem" onClick="menuOnClick('pen')"	>
+									监听设置
+								</div>
+								
+								<div id="pen" style="display: none">
+																							
+								
+								</div>
+								<div class="menuItem" onClick="menuOnClick('page')">
+									页面视图设置
+								</div>
+								<div id="page" style="display: none">
+									<input type="button" class="a" onclick="setPageMode(1,150)" value="设置页面显示模式"/>
+									
+									
+
+								</div>
+								<div class="menuItem" onClick="menuOnClick('tool')">
+									工具栏/菜单栏
+								</div>
+								<div id="tool" style="display: none">
+
+
+								</div>
+								<div class="menuItem" onClick="menuOnClick('other')">
+									其他
+								</div>
+								<div id="other" style="display: none">
+									<input type="button" class="a" onclick="undo()" value="单步撤销"/>
+									<input type="button" class="a" onclick="undoAll()" value="撤销本次所有操作"/>
+									<input type="button" class="a" onclick="isSaved()" value="判断文档是否被修改"/>
+			
+								</div>
+				</div>
+				<div class="content">
+								<div class="menuItem" onClick="menuOnClick('test2')">
+									常用接口
+								</div>
+								<div id="test2">
+									<input type="button" class="a" onclick="openFile()" value="打开文档"/>
+ 									<input type="button" class="a" onclick="openFileServer()" value="打开服务器文档"/>
+									<input type="button" class="a" onclick="setUserName()" value="用户登陆"/>
+									<input type="button" class="a" onclick="saveFile()" value="保存文档"/>
+									<input type="button" class="a" onclick="saveFileAs()" value="文件另存为"/>
+									<input type="button" class="a" onclick="saveFileServer()" value="另存为远程文件"/>
+									<input type="button" class="a" onclick="printFile()" value="快速打印"/>
+									<input type="button" class="a" onclick="performClick()" value="弹出框打印"/>
+									<input type="button" class="a" onclick="closeFile()" value="关闭文档"/>		
+								</div>
+
+								<div class="menuItem" onClick="menuOnClick('seal1')">
+									盖章方式
+								</div>
+								<div id="seal1" style="display: none">
+									<input type="button" class="a" onclick="sealSignBySetting()" value="手动盖章"/>
+									<input type="button" class="a" onclick="getSignaturesCount()" value="获取签章个数"/>
+									<input type="button" class="a" onclick="validSignature()" value="验证签章"/>
+								</div>
+								
+								<div class="menuItem" onClick="menuOnClick('aip1')">
+									文件操作
+								</div>
+								<div id="aip1" style="display: none">
+									<input type="button" class="a" onclick="mergeFile()" value="合并文件"/>
+									<input type="button" class="a" onclick="extractPage()" value="拆分1-2页文档至新文件"/>	
+
+									<input type="button" class="a" onclick="addTrackInfo()" value="添加图片水印"/>
+									<input type="button" class="a" onclick="addTrackInfoText()" value="添加文字水印"/>
+									<input type="button" class="a" onclick="addTrackInfoData()" value="添加图片水印（通过base64图像数据）"/>
+									<input type="button" class="a" onclick="clearTrackInfo()" value="清除水印"/>
+
+									<input type="button" class="a" onclick="insertPictureCode()" value="添加二维码"/>
+									<input type="button" class="a" onclick="clearPictureCode()" value="清除二维码"/>
+
+									<input type="button" class="a" onclick="addColorTemplate()" value="添加校色模版"/>	
+									<input type="button" class="a" onclick="adjustColor()" value="打印校色"/>			   									
+
+									<input type="button" class="a" onclick="getPageTxt()" value="取得首页文字"/>			
+									<input type="button" class="a" onclick="getPageImgData()" value="取得首页图片"/>
+			
+									<input type="button" class="a" onclick="addFreeText()" value="添加文本框批注"/>																		
+									<input type="button" class="a" onclick="getFreeTextContentById()" value="获取文本框批注内容"/>																		
+									<input type="button" class="a" onclick="modifyFreeTextById()" value="修改文本框批注"/>									
+									<input type="button" class="a" onclick="deleteAllFreeText()" value="删除文本框批注"/>																											
+									
+								</div>
+								<div class="menuItem" onClick="menuOnClick('pen1')"	>
+									监听设置
+								</div>
+								<div id="pen1" style="display: none">
+									<input type="button" class="a" onclick="registListener()" value="设置控制监听"/>
+									<input type="button" class="a" onclick="registListener()" value="添加打印监听"/>									
+									
+									<input type="button" class="a" onclick="saveFileListener()" value="保存监听"/>																		
+								
+								</div>
+								<div class="menuItem" onClick="menuOnClick('page1')">
+									页面视图设置
+								</div>
+								<div id="page1" style="display: none">
+
+									<input type="button" class="a" onclick="return setZoomRadio()" value="设置页面显示比例" />
+									<input type="button" class="a" onclick="return getZoomRadio()" value="获取页面显示比例" />
+
+								</div>
+								<div class="menuItem" onClick="menuOnClick('tool1')">
+									工具栏/菜单栏
+								</div>
+								<div id="tool1" style="display: none">
+
+									<input type="button" class="a" onclick="setCompositeVisible()" value="隐藏打开文件组件" />
+									<input type="button" class="a" onclick="queryCompositeVisible()" value="显示打开文件组件" />		
+									<input type="button" class="a" onclick="setCompositeEnable()" value="禁用打开文件组件" />
+									<input type="button" class="a" onclick="startCompositeEnable()" value="启用打开文件组件" />
+
+								</div>
+								<div class="menuItem" onClick="menuOnClick('other1')">
+									其他
+								</div>
+								<div id="other1" style="display: none">
+
+									<input type="button" class="a" onclick="getPluginVersion()" value="获取插件版本"/>
+
+									<input type="button" class="a" onclick="setMetaData()" value="设置文档元数据"/>
+									<input type="button" class="a" onclick="getMetaData()" value="获取文档元数据"/>
+
+									<input type="button" class="a" onclick="setLogSvrURL()" value="设置日志服务器地址"/>
+									<input type="button" class="a" onclick="getLogFilePath()" value="获取日志文件路径"/>
+
+									<input type="button" class="a" onclick="getTaggedText()" value="获取语义内容"/>
+
+									<input type="button" class="a" onclick="setUserName()" value="设置用户名"/>
+									<input type="button" class="a" onclick="getUserName()" value="获取用户名"/>
+								</div>
+				</div>
+			</td>
+			<td width="85%" height="768" valign="top" >
+				<script src="./common/Loadaip.js"></script>
+			</td>
+		</tr>
+	</table>
+
+    <script>　　　　　//获取页面的每个按钮
+        var btns = document.getElementsByClassName("btn");　　　　　//获取内容盒子
+        var contents = document.getElementsByClassName("content");
+
+　　　　　//遍历每个按钮为其添加点击事件
+        for(var i=0;i<btns.length;i++){
+            btns[i].index = i;
+            btns[i].onclick = function(){　　　　　　　　　　//对当前点击的按钮赋予active类名及显示当前按钮对应的内容
+                for(var j=0;j<btns.length;j++){
+                    btns[j].className = btns[j].className.replace(' active', '').trim();
+                    contents[j].className = contents[j].className.replace(' show', '').trim();
+                }
+                this.className = this.className + ' active';
+                contents[this.index].className = contents[this.index].className + ' show';
+            };
+
+        }
+
+
+    </script>
+</body>
+</html>
